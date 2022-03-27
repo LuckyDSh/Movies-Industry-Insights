@@ -95,7 +95,23 @@ for col_name in data_numerized.columns:
          data_numerized[col_name] = data_numerized[col_name].astype('category')
          data_numerized[col_name] = data_numerized[col_name].cat.codes
       
- 
+    
+correlation_matrix = data_numerized.corr(method = 'pearson')
+sns.heatmap(correlation_matrix, annot = True)
+
+plt.title('Correlation Metrics for Numeric Features')
+plt.xlabel('Movie Features')
+plt.ylabel('Movie Features')
+
+corr_pairs = correlation_matrix.unstack()
+
+sorted_corr_pairs = corr_pairs.sort_values()
+
+high_correlation = sorted_corr_pairs[(sorted_corr_pairs) > 0.5]
+
+# Result:
+# Correlation Between Gross and Company is really small (<20%)
+# But Analysis shows that Votes has high correlation (~63%)
 
 
 
